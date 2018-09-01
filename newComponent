@@ -1,0 +1,56 @@
+import React from 'react';
+import {
+  StyleSheet,
+  View,
+  Text,
+  PanResponder,
+  Animated,
+  Dimensions,
+} from 'react-native';
+
+export default class DropZone extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+
+  setDropZoneValues(event) {
+    this.setState({
+      dropZoneValues: event.nativeEvent.layout,
+    });
+  }
+
+  isDropZone(gesture) {
+    const dz = this.state.dropZoneValues;
+    return gesture.moveY > dz.y && gesture.moveY < dz.y + dz.height;
+  }
+
+
+  render() {
+    return (
+      <View
+        onLayout={this.props.onLayoutProps}
+        style={styles.dropZone}
+      >
+        <Text style={styles.text}>
+Drop me here Red!
+        </Text>
+      </View>
+
+    );
+  }
+}
+
+let styles = StyleSheet.create({
+  text: {
+    marginTop: 25,
+    marginLeft: 5,
+    marginRight: 5,
+    textAlign: 'center',
+    color: '#fff',
+  },
+  dropZone: {
+    height: 100,
+    backgroundColor: 'red',
+  },
+});
